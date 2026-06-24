@@ -64,21 +64,32 @@ Apache の access.log を確認した。
 
 - MySQL 8.4 を導入した
 - MySQL の起動を確認した
+- `sudo mysql` で MySQL 操作モードへ入れることを確認した
+- WordPress 用データベース `wordpress` を作成した
+- WordPress 用 MySQL ユーザー `wpuser` を作成した
+- `wpuser` に `wordpress` データベースへの権限を付与した
+- `SHOW GRANTS FOR 'wpuser'@'localhost';` で権限を確認した
+- `mysql -u wpuser -p wordpress` で専用ユーザーからデータベースへ接続できることを確認した
+- `SHOW TABLES;` で WordPress 未導入時点ではテーブルが空であることを確認した
+
+### PHP / PDO / MySQL Connection
+
+- `php-mysql` が導入済みであることを確認した
+- PHP から MySQL へ PDO 接続できるか確認した
+- `samples/mysql-connect.php.example` をもとに接続確認用ファイルを作成した
+- Apache 経由で `http://localhost/mysql-connect.php` にアクセスした
+- `MySQL connection successful.` が表示されることを確認した
 
 ## 次に行うこと
 
 次回は以下から開始する。
 
-```bash
-sudo mysql
-```
-
-その後、以下を行う。
-
-1. WordPress 用 database を作成する
-2. WordPress 用 MySQL user を作成する
-3. WordPress 用 user に database 権限を付与する
-4. PHP から MySQL 接続確認を行う
+1. 接続確認用の `mysql-connect.php` が `/var/www/html/` に残っている場合は削除する
+2. WordPress 本体を手動で配置する
+3. WordPress の `wp-config.php` に DB 情報を設定する
+4. ブラウザから WordPress インストール画面を開く
+5. WordPress が `wordpress` データベース内にテーブルを作成する流れを確認する
+6. 手動構築ログを更新する
 
 ## 手動構築から IaC 化する予定の項目
 
