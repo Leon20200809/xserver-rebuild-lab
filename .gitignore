@@ -1,0 +1,42 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+
+# SSH keys
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# Logs
+*.log
+logs/
+
+# Database dumps
+*.sql
+*.sql.gz
+*.dump
+
+# WordPress sensitive files
+wp-config.php
+wordpress/
+wp-content/uploads/
+
+# Ansible secrets
+ansible/group_vars/all.yml
+ansible/host_vars/
+*.vault
+
+# Temporary files
+tmp/
+temp/
+.cache/

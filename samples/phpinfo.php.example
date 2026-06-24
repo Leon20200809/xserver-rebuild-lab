@@ -1,0 +1,15 @@
+<?php
+/**
+ * PHP execution check sample.
+ *
+ * Copy this file to Apache DocumentRoot only when you need to check PHP.
+ *
+ * Example:
+ *   cp samples/phpinfo.php.example /var/www/html/phpinfo.php
+ *
+ * Warning:
+ *   Do not leave phpinfo.php on a public server.
+ *   It exposes server and PHP configuration details.
+ */
+
+phpinfo();
