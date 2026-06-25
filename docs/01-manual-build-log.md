@@ -79,17 +79,56 @@ Apache の access.log を確認した。
 - `samples/mysql-connect.php.example` をもとに接続確認用ファイルを作成した
 - Apache 経由で `http://localhost/mysql-connect.php` にアクセスした
 - `MySQL connection successful.` が表示されることを確認した
+- 接続確認用の `mysql-connect.php` は確認後に `/var/www/html/` から削除した
+
+### WordPress Manual Installation
+
+- WordPress 公式サイトから `latest.tar.gz` を取得した
+- `/tmp` で WordPress 本体を展開した
+- 展開した WordPress 本体を `/var/www/html/wordpress` へ配置した
+- ブラウザから `http://localhost/wordpress/` にアクセスした
+- `wp-config.php` が存在しないため、WordPress の初期設定画面へ進むことを確認した
+- ブラウザ上で DB 情報を入力した
+- WordPress が自動で `wp-config.php` を作成できなかったため、表示された設定内容を手動で `/var/www/html/wordpress/wp-config.php` として作成した
+- WordPress の5分インストール画面からサイト情報と管理者情報を入力した
+- WordPress ダッシュボードへログインできることを確認した
+- 英語版 WordPress としてインストールされたため、管理画面から日本語化を試みた
+- `www-data` が翻訳ファイルを書き込めるように、WordPress 配置先の所有者を調整した
+- `sudo chown -R www-data:www-data /var/www/html/wordpress` を実行後、管理画面で日本語を選択できることを確認した
+- 管理画面の日本語化が完了した
+
+### WordPress / MySQL Table Check
+
+- WordPress の初期インストール後、`wordpress` データベース内に WordPress 用テーブルが作成されることを確認する予定
 
 ## 次に行うこと
 
 次回は以下から開始する。
 
-1. 接続確認用の `mysql-connect.php` が `/var/www/html/` に残っている場合は削除する
-2. WordPress 本体を手動で配置する
-3. WordPress の `wp-config.php` に DB 情報を設定する
-4. ブラウザから WordPress インストール画面を開く
-5. WordPress が `wordpress` データベース内にテーブルを作成する流れを確認する
-6. 手動構築ログを更新する
+1. MySQL に `wpuser` で接続する
+2. `wordpress` データベース内のテーブルを確認する
+3. `wp_posts`、`wp_options`、`wp_users` などの WordPress 用テーブルが作成されていることを確認する
+4. `wp-config.php` の権限を確認する
+5. WordPress 本体・`wp-content`・`wp-config.php` の所有者と権限設計を整理する
+6. 手動構築ログを更新して GitHub に反映する
+
+## 次回の開始コマンド候補
+
+```bash
+mysql -u wpuser -p wordpress
+```
+
+```sql
+SHOW TABLES;
+```
+
+```bash
+ls -al /var/www/html/wordpress/wp-config.php
+```
+
+```bash
+ls -al /var/www/html/wordpress/wp-content
+```
 
 ## 手動構築から IaC 化する予定の項目
 
